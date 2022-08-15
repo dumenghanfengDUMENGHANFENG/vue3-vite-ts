@@ -1,0 +1,79 @@
+@import 'elementStyle';
+
+.app-main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: #f8f8f9;
+
+  // 侧边栏
+  .aside {
+    height: 100%;
+  }
+
+  // 右边内容
+  .content {
+
+    // 头部
+    .header {
+      height: 50px;
+      background-color: #FFFFFF;
+      padding-left: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .header-left {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .header-collapse {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .tabs {
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--el-border-color-light);
+      display: flex;
+      justify-content: space-between;
+      .close{
+        margin-right: 30px;
+        height: 41px;
+        line-height: 41px;
+      }
+      // width: calc(100% - 200px)
+    }
+
+    // 中间内容
+    .main {
+      margin: 15px;
+      background-color: #FFFFFF;
+      height: calc(100% - 151px);
+      border-radius: 10px;
+      overflow: auto;
+
+      .main-content {
+        padding: 22px;
+      }
+    }
+
+    // 底部
+    .footer {
+      background-color: #FFFFFF;
+      height: 30px;
+      line-height: 30px;
+      background: none repeat scroll 0 0 #fff;
+      overflow: hidden;
+      font-size: .7rem !important;
+      color: #7a8b9a;
+      letter-spacing: .8px;
+      padding-left: 15px;
+      font-family: Arial, sans-serif !important;
+      z-index: 99;
+    }
+  }
+
+}
