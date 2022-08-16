@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
+        "Axios",
+        "esbuild",
         "impor",
+        "nporgress",
         "nprogress",
         "pinia",
         "unplugin"

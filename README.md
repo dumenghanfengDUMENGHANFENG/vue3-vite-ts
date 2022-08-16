@@ -3,6 +3,27 @@
 - 独梦寒风练习vue3构建,如有不足请练习作者指正
 - 联系方式 1254442318@qq.com
 
+## 项目使用插件
+
+- vue3
+- typescript
+- vite
+- pinia(替代Vuex)
+- router(路由)
+- axios(api请求)
+- qs
+- sass(css)
+- element-plus(ui库)
+- eslint(页面格式配置)
+- eslint-config-prettier
+- eslint-plugin-prettier
+- eslint-plugin-vue
+- js-cookie(cookie)
+- nprogress(进度条)
+- unplugin-vue-components
+- unplugin-auto-impor
+- unplugin-vue-define-options
+
 ## 自定义组件
 
 - communalDialog 该组件仅适用于通用弹窗即弹窗内没有负责的操作仅有展示提交等功能
@@ -108,24 +129,3 @@
     handleSizeChange 条目切换
     paginationChange 分页数据变化传递
     ```
-    
-## 项目使用插件
-
-- vue3
-- typescript
-- vite
-- pinia(替代Vuex)
-- router(路由)
-- axios(api请求)
-- qs
-- sass(css)
-- element-plus(ui库)
-- eslint(页面格式配置)
-- eslint-config-prettier
-- eslint-plugin-prettier
-- eslint-plugin-vue
-- js-cookie(cookie)
-- nprogress(进度条)
-- unplugin-vue-components
-- unplugin-auto-impor
-- unplugin-vue-define-options

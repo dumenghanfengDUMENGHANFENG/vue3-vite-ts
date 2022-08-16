@@ -47,20 +47,8 @@
       </div>
       <div class="tabs">
         <Tabs class="tabsLeft" />
-        <el-dropdown class="close">
-          <span class="el-dropdown-link"
-            >操作<el-icon class="el-icon--right"><arrow-down /></el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>刷新当前</el-dropdown-item>
-              <el-dropdown-item>关闭其它</el-dropdown-item>
-              <el-dropdown-item>关闭全部</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <Refresh class="tabsClose" />
       </div>
-
       <!-- 中间内容 -->
       <div class="main">
         <div class="main-content">
@@ -77,6 +65,7 @@
   import Aside from '@/layout/components/aside.vue'
   import Breadcrumb from '@/layout/components/breadcrumb.vue'
   import Tabs from '@/layout/components/tabs.vue'
+  import Refresh from '@/layout/components/refresh.vue'
   import Dropdown from '@/layout/components/dropdown.vue'
   import routerMap from '@/router/routerMap'
   import { ref } from 'vue'
@@ -101,10 +90,10 @@
     }[]
   }[]
   /**
-  asideTypeList 侧边栏数据
-  asideIsShow 侧边栏是否打开
-  asideIsShowClick 侧边栏点击
-  **/
+asideTypeList 侧边栏数据
+asideIsShow 侧边栏是否打开
+asideIsShowClick 侧边栏点击
+**/
 
   const asideList: asideTypeList = routerMap
   const asideIsShow = ref(store.layout.asideIsShow)
@@ -117,6 +106,7 @@
   .header {
     display: flex;
     align-items: center;
+
     .header-icon {
       padding-right: 15px;
     }

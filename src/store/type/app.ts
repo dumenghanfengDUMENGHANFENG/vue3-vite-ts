@@ -14,10 +14,6 @@ export type appType = {
   toke?: number
 }
 export type layoutType = {
-  routerList: {
-    name: string
-    path: string
-  }[]
   asideIsShow: Boolean
   path: string
   tabsList: {
@@ -28,4 +24,8 @@ export type layoutType = {
 export type layoutTypeAdd = {
   name: string
   path: string
+  meta: {
+    title: string
+    icon: string
+  }
 }

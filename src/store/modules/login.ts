@@ -37,7 +37,6 @@ const loginStore = defineStore('login', {
       return new Promise((resolve, reject) => {
         LoginApis.logout()
           .then((res) => {
-            console.log(res)
             sessionStorage.removeItem('layoutStore')
             delToken()
             resolve(res)
@@ -50,6 +49,14 @@ const loginStore = defineStore('login', {
     delToken() {
       delToken()
     }
+  },
+  persist: {
+    //  数据持久化
+    enabled: true, // 开启存储
+    strategies: [
+      //在不写的情况下，默认存储到 sessionStorage 里面,默认存储 state 里面的所有数据。
+      { key: 'loginStore', storage: sessionStorage, paths: ['username'] }
+    ]
   }
 })
 export default loginStore

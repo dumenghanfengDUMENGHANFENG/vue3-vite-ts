@@ -1,6 +1,6 @@
 <template>
   <div class="header-right">
-    <el-icon :size="30"><User /></el-icon>
+    <el-avatar :size="30" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
     <el-dropdown class="dropdown" size="large" trigger="click">
       <span>
         {{ username }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
@@ -29,6 +29,7 @@
       type: 'warning'
     })
       .then(() => {
+        console.log('1111')
         store.login
           .logOut()
           .then(() => {

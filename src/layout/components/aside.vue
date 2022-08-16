@@ -11,7 +11,7 @@
       <span>{{ asideObj.meta.title }}</span>
     </template>
     <el-menu-item-group v-for="item in asideObj.children" :key="item.path">
-      <el-menu-item @click="routerClick(item, asideObj)" :index="item.path">
+      <el-menu-item @click="routerClick(item)" :index="item.path">
         <component :is="item.meta.icon" class="menuIcon" />
         {{ item.meta.title }}
       </el-menu-item>
@@ -46,13 +46,16 @@
     }
   })
   // 菜单点击
-  function routerClick(oneItem: routerType, twoItem?: routerType) {
-    if (twoItem) {
-      store.layout.addRouterList(oneItem, twoItem)
-    } else {
-      store.layout.addRouterList(oneItem)
-    }
-    store.layout.modifyPath(oneItem.path)
+  function routerClick(item: routerType) {
+    store.layout.addRouterList({
+      name: item.name,
+      path: item.path,
+      meta: {
+        title: item.meta.title,
+        icon: item.meta.icon
+      }
+    })
+    store.layout.modifyPath(item.path)
   }
 </script>
 

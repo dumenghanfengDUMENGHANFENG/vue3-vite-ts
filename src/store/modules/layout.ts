@@ -3,12 +3,6 @@ import { layoutType, layoutTypeAdd } from '../type/app'
 const layoutStore = defineStore('layout', {
   state: (): layoutType => {
     return {
-      routerList: [
-        {
-          path: '/workbench',
-          name: '工作台'
-        }
-      ],
       tabsList: [
         {
           path: '/workbench',
@@ -21,23 +15,11 @@ const layoutStore = defineStore('layout', {
   },
   actions: {
     // 新增路由
-    addRouterList(oneItem: layoutTypeAdd, twoItem?: layoutTypeAdd) {
-      if (twoItem) {
-        this.routerList.splice(1, 2)
-        this.routerList.push(twoItem)
-        this.routerList.push(oneItem)
-      } else {
-        if (oneItem.path === '/workbench') {
-          this.routerList.splice(1, this.routerList.length)
-        } else {
-          this.routerList.splice(1, this.routerList.length)
-          this.routerList.push(oneItem)
-        }
-      }
-      const index = this.tabsList.findIndex((ele) => ele.path === oneItem.path)
+    addRouterList(item: layoutTypeAdd) {
+      const index = this.tabsList.findIndex((ele) => ele.path === item.path)
       if (index === -1) {
-        this.tabsList.push(oneItem)
-        this.path = oneItem.path
+        this.tabsList.push(item)
+        this.path = item.path
       }
     },
     // 删除路由
@@ -56,7 +38,22 @@ const layoutStore = defineStore('layout', {
         }
       }
     },
-    // 当前路由
+    // 关闭其它路由
+    closeOther(name: string) {
+      const currentObj: any = this.tabsList.find((ele) => ele.path === name)
+      const oneObj: any = this.tabsList[0]
+      this.tabsList = [].concat(oneObj, currentObj)
+    },
+    // 关闭全部
+    closeAll() {
+      this.path = '/workbench'
+      this.tabsList = [
+        {
+          path: '/workbench',
+          name: '工作台'
+        }
+      ]
+    },
     modifyPath(item: string) {
       this.path = item
     },
@@ -66,12 +63,6 @@ const layoutStore = defineStore('layout', {
     },
     // 重置
     reset() {
-      this.routerList = [
-        {
-          path: '/workbench',
-          name: '工作台'
-        }
-      ]
       this.tabsList = [
         {
           path: '/workbench',
@@ -87,7 +78,7 @@ const layoutStore = defineStore('layout', {
     enabled: true, // 开启存储
     strategies: [
       //在不写的情况下，默认存储到 sessionStorage 里面,默认存储 state 里面的所有数据。
-      { key: 'layoutStore', storage: sessionStorage, paths: ['routerList', 'tabsList', 'path'] }
+      { key: 'layoutStore', storage: sessionStorage, paths: ['tabsList', 'path'] }
     ]
   }
 })

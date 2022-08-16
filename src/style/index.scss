@@ -39,19 +39,22 @@
       border-top: 1px solid var(--el-border-color-light);
       display: flex;
       justify-content: space-between;
-      .close{
+      .tabsLeft{
+        width: calc(100% - 77px);
+      }
+      .tabsClose{
         margin-right: 30px;
         height: 41px;
         line-height: 41px;
+        cursor: pointer;
       }
-      // width: calc(100% - 200px)
     }
 
     // 中间内容
     .main {
       margin: 15px;
       background-color: #FFFFFF;
-      height: calc(100% - 151px);
+      height: calc(100% - 152px);
       border-radius: 10px;
       overflow: auto;
 

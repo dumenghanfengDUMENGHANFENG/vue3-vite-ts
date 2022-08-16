@@ -4,7 +4,7 @@ const routerMap = [
     name: 'workbench',
     meta: {
       title: 'Workbench',
-      icon: 'Menu'
+      icon: 'MessageBox'
     },
     component: () => import('@/views/workbench/index.vue')
   },

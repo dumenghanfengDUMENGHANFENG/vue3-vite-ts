@@ -6,7 +6,7 @@ import { getToken } from '@/utils/cookie'
 import routerMap from '@/router/routerMap'
 // 路由白名单
 const whiteList = ['/login', '/404', '/redirect']
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: any, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title + ' - Vue3+Vite+TS'
   }
@@ -20,6 +20,14 @@ router.beforeEach((to, from, next) => {
     } else {
       const existenceIsShow = existence(routerMap, to.path)
       if (existenceIsShow) {
+        layoutStore().addRouterList({
+          name: to.name,
+          path: to.path,
+          meta: {
+            title: to.meta.title,
+            icon: to.meta.icon
+          }
+        })
         next()
       } else {
         if (whiteList.indexOf(to.path) !== -1) {

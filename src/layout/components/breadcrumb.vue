@@ -1,8 +1,11 @@
 <template>
   <el-breadcrumb class="header-breadcrumb" separator="/">
-    <el-breadcrumb-item v-for="(item, index) in routerList" :key="item.path" @click="breadcrumbClick(index)">{{
-      item.name
-    }}</el-breadcrumb-item>
+    <el-breadcrumb-item key="/workbench" @click="breadcrumbClick()">工作台</el-breadcrumb-item>
+    <el-breadcrumb-item
+      v-for="item in store.layout.path === '/workbench' ? [] : filter(store.layout.path.split('/'))"
+      :key="item"
+      >{{ item }}</el-breadcrumb-item
+    >
   </el-breadcrumb>
 </template>
 
@@ -12,16 +15,16 @@
   defineOptions({
     name: 'Breadcrumb'
   })
-
   const router = useRouter()
-  const routerList = store.layout.routerList
-  function breadcrumbClick(index: Number) {
-    if (index === 0) {
-      store.layout.modifyPath('/workbench')
-      router.push({
-        path: '/workbench'
-      })
-    }
+  function breadcrumbClick() {
+    store.layout.modifyPath('/workbench')
+    router.push({
+      path: '/workbench'
+    })
+  }
+  // 过滤
+  function filter(item: Array<string>) {
+    return item.filter((ele: string) => ele !== '')
   }
 </script>
 
