@@ -29,7 +29,6 @@
       type: 'warning'
     })
       .then(() => {
-        console.log('1111')
         store.login
           .logOut()
           .then(() => {

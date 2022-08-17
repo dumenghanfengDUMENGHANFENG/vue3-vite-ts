@@ -1,11 +1,22 @@
 <template>
   <div class="login">
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px">
-      <el-form-item label="帐号" prop="username">
+      <el-form-item :label="$t(`login.accounts`)" prop="username">
         <el-input v-model="ruleForm.username" />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item :label="$t(`login.password`)" prop="password">
         <el-input type="password" v-model="ruleForm.password" />
+      </el-form-item>
+      <el-form-item label="中/英文">
+        <el-select v-model="ruleForm.lang" @change="changeLang">
+          <el-option
+            v-for="item in langList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+            :disabled="item.disabled"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button style="width: 100%" type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
@@ -18,20 +29,35 @@
   import { reactive, ref } from 'vue'
   import { useRouter } from 'vue-router'
   import store from '@/store'
-  import type { FormInstance, FormRules } from 'element-plus'
+  import { useI18n } from 'vue-i18n'
+  import { FormInstance, FormRules, ElMessageBox } from 'element-plus'
   defineOptions({
     name: 'Login'
   })
+  const { t, locale } = useI18n()
   const ruleFormRef = ref<FormInstance>()
   const router = useRouter()
   const ruleForm = reactive({
     username: '',
     password: '',
-    loginType: 1
+    loginType: 1,
+    lang: 'zh'
   })
+  const langList = reactive([
+    {
+      value: 'zh',
+      label: '中文',
+      disabled: true
+    },
+    {
+      value: 'en',
+      label: '英文',
+      disabled: false
+    }
+  ])
   const rules = reactive<FormRules>({
-    username: [{ required: true, message: '请输入帐号', trigger: 'blur' }],
-    password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+    username: [{ required: true, message: `${t('PleaseEnter')}${t('login.accounts')}`, trigger: 'blur' }],
+    password: [{ required: true, message: `${t('PleaseEnter')}${t('login.password')}`, trigger: 'blur' }]
   })
   const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
@@ -50,6 +76,27 @@
           })
       }
     })
+  }
+  // 国际化(项目没要求直接中文)
+  const lang = sessionStorage.getItem('lang') || 'zh'
+  if (lang) {
+    langList.forEach((ele) => (ele.disabled = false))
+    langList[langList.findIndex((ele) => ele.value === lang)].disabled = true
+    ruleForm.lang = lang
+  }
+  const changeLang = (value: string) => {
+    ElMessageBox.confirm('确定切换语言吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+      .then(() => {
+        langList.forEach((ele) => (ele.disabled = false))
+        langList[langList.findIndex((ele) => ele.value === value)].disabled = true
+        locale.value = value
+        sessionStorage.setItem('lang', value)
+      })
+      .catch(() => {})
   }
 </script>
 <style scoped lang="scss">

@@ -3,9 +3,19 @@
         "Axios",
         "esbuild",
         "impor",
+        "intlify",
         "nporgress",
         "nprogress",
         "pinia",
         "unplugin"
-    ]
+    ],
+    "vue-i18n.i18nPaths": "src\\locales",
+    "i18n-ally.localesPaths": [
+        "src/locales"
+    ],
+    "i18n-ally.extract.ignoredByFiles": {
+        "src\\views\\login.vue": [
+            "\n      国际化:{{ $t('workbench') }}\n      "
+        ]
+    }
 }

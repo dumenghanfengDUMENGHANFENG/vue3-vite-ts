@@ -1,15 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import piniaPluginPersist from 'pinia-plugin-persist'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+// router
 import router from './router'
 import './router/interceptRouter'
+// 国际化
+import i18n from './locales/index' // 引入
+// pinia
 import { createPinia } from 'pinia'
-
+import piniaPluginPersist from 'pinia-plugin-persist'
+// element
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // 清除默认样式
 import '@/style/reset.scss'
 import '@/style/index.scss'
@@ -26,4 +29,5 @@ app.use(store)
 app.use(ElementPlus, {
   locale: zhCn
 })
+app.use(i18n)
 app.mount('#app')

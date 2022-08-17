@@ -7,6 +7,7 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default ({ mode }: { mode: any }) => {
   const env = loadEnv(mode, __dirname)
   const NODE_ENV = env.MODE
@@ -20,6 +21,9 @@ export default ({ mode }: { mode: any }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
+      }),
+      vueI18n({
+        include: path.resolve(__dirname, './path/to/src/locales/**')
       })
     ],
     base: NODE_ENV === 'development' ? '/' : './',

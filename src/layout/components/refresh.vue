@@ -18,8 +18,8 @@
   defineOptions({
     name: 'Refresh'
   })
-  const router = useRouter()
-  const route = useRoute()
+  const router = useRouter() //路由跳转
+  const route = useRoute() //获取路由参数
   // 刷新当前
   function refresh() {
     router.replace({ name: 'redirect', params: { path: route.fullPath } })
