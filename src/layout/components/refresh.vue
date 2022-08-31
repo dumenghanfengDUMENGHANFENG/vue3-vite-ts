@@ -13,8 +13,6 @@
   </el-dropdown>
 </template>
 <script setup lang="ts">
-  import { useRouter, useRoute } from 'vue-router'
-  import store from '@/store'
   defineOptions({
     name: 'Refresh'
   })
@@ -27,6 +25,7 @@
   // 关闭其它
   function closeOther() {
     store.layout.closeOther(route.fullPath)
+    router.replace({ name: 'redirect', params: { path: route.fullPath } })
   }
   // 关闭全部
   function closeAll() {

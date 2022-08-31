@@ -15,12 +15,13 @@
 <script lang="ts" setup>
   import { QueryForm } from '@/components/queryForm/index'
   import data from './data'
+  // import data from './data'
   defineOptions({
     name: 'QueryForm'
   })
-  const queryFormTags = data.queryFormTags
-  const queryFormObj = data.queryFormObj
-  const queryFormSelect = data.queryFormSelect
+  const queryFormTags = data().queryFormTags
+  const queryFormObj = data().queryFormObj
+  const queryFormSelect = data().queryFormSelect
   const foldIsShow = false
   const foldIndex = 3
   const click = () => {

@@ -19,7 +19,6 @@
   </el-sub-menu>
 </template>
 <script setup lang="ts">
-  import store from '@/store'
   defineOptions({
     name: 'Aside'
   })

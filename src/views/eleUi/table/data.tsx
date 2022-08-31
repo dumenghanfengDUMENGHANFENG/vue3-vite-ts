@@ -1,13 +1,12 @@
-import { ref, reactive } from 'vue'
-const data = {
-  name: ref('name'),
-  index: 1,
-  paginationQuery: reactive({
+const data = () => {
+  const name = ref('name')
+  let index = 1
+  const paginationQuery = reactive({
     currentPage: 1,
     pageSize: 10,
     total: 400
-  }),
-  tableList: [
+  })
+  const tableList = [
     {
       prop: 'name',
       label: '名字',
@@ -56,8 +55,8 @@ const data = {
           <el-button
             type="primary"
             onClick={() => {
-              data.name.value = '1111'
-              data.index = 99999
+              name.value = '1111'
+              index = 99999
             }}>
             编辑
           </el-button>
@@ -87,7 +86,7 @@ const data = {
           <el-button
             type="primary"
             onClick={() => {
-              console.log(data)
+              console.log('编辑')
             }}>
             编辑
           </el-button>
@@ -95,5 +94,11 @@ const data = {
       }
     }
   ]
+  return {
+    name,
+    index,
+    paginationQuery,
+    tableList
+  }
 }
 export default data

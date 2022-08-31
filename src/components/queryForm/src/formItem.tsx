@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+// import { defineComponent } from 'vue'
 // 判断不同类型进行分配
 const setFormItem = (props: Record<string, any>) => {
   switch (props.data.tag) {
@@ -49,16 +49,18 @@ const Select = (form: Record<string, any>, data: Record<string, any>, queryFormS
       multiple={data.multiple ? true : false}
       collapse-tags={data.multiple ? true : false}
       onBlur={formBlur(form, data.prop)}>
-      {queryFormSelect[data.prop].map((item: { value: any; label: string }) => {
-        return <el-option key={item.value} label={item.label} value={item.value} />
-      })}
+      {queryFormSelect[data.prop]
+        ? queryFormSelect[data.prop].map((item: { value: any; label: string }) => {
+            return <el-option key={item.value} label={item.label} value={item.value} />
+          })
+        : []}
     </el-select>
   )
 }
 // 树形选择框
 const treeSelect = (form: Record<string, any>, data: Record<string, any>, queryFormSelect: Record<string, any>) => {
   return (
-    <el-tree-select
+    <el-treeSelect
       v-model={form[data.prop]}
       data={queryFormSelect[data.prop]}
       multiple={data.multiple ? true : false}

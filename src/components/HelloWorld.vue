@@ -3,7 +3,6 @@
   <button @click="clickA">组件点击</button>
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits } from 'vue'
   // onMounted(() => {
   //   console.log('11111')
   // })

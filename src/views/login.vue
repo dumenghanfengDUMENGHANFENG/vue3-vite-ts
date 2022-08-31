@@ -26,11 +26,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { reactive, ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import store from '@/store'
-  import { useI18n } from 'vue-i18n'
-  import { FormInstance, FormRules, ElMessageBox } from 'element-plus'
+  // import { useI18n } from 'vue-i18n'
+  import { FormInstance, FormRules } from 'element-plus'
   defineOptions({
     name: 'Login'
   })

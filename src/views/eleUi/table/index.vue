@@ -18,11 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import { TableProBar } from '@/components/tableProBar/index'
   import data from './data'
   defineOptions({
-    name: 'Table'
+    name: 'RepairManage'
   })
   const tableData = [
     {
@@ -48,11 +47,11 @@
       address: '上海'
     }
   ]
-  const Table = ref(data)
+  const Table = ref(data())
   const name = Table.value.name
   const index = Table.value.index
-  const tableList = data.tableList
-  let paginationQuery = data.paginationQuery
+  const tableList = data().tableList
+  let paginationQuery = data().paginationQuery
 
   function click() {
     console.log(paginationQuery)

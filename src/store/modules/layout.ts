@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+// import { defineStore } from 'pinia'
 import { layoutType, layoutTypeAdd } from '../type/app'
 const layoutStore = defineStore('layout', {
   state: (): layoutType => {
@@ -24,18 +24,17 @@ const layoutStore = defineStore('layout', {
     },
     // 删除路由
     removeTabsList(name: string) {
+      if ((name = '/workbench')) return
       const index = this.tabsList.findIndex((ele) => ele.path === name)
       this.tabsList.splice(index, 1)
       if (this.path === name) {
-        if (this.tabsList.length === 1) {
-          this.path = '/workbench'
+        if (index < this.tabsList.length) {
+          this.path = this.tabsList[index].path
         } else {
-          if (index < this.tabsList.length) {
-            this.path = this.tabsList[index].path
-          } else {
-            this.path = this.tabsList[index - 1].path
-          }
+          this.path = this.tabsList[index - 1].path
         }
+      } else {
+        this.path === name
       }
     },
     // 关闭其它路由

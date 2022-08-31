@@ -2,7 +2,7 @@ import router from './index'
 import layoutStore from '@/store/modules/layout'
 import loginStore from '@/store/modules/login'
 import { NProgressStart, NProgressClose } from '@/utils/nporgress'
-import { getToken } from '@/utils/cookie'
+import { getToken, delToken } from '@/utils/cookie'
 import routerMap from '@/router/routerMap'
 // 路由白名单
 const whiteList = ['/login', '/404', '/redirect']
@@ -20,15 +20,26 @@ router.beforeEach((to: any, from, next) => {
     } else {
       const existenceIsShow = existence(routerMap, to.path)
       if (existenceIsShow) {
-        layoutStore().addRouterList({
-          name: to.name,
-          path: to.path,
-          meta: {
-            title: to.meta.title,
-            icon: to.meta.icon
-          }
-        })
-        next()
+        loginStore()
+          .getInfo()
+          .then((res: any) => {
+            loginStore().$patch({
+              username: res.data.user.userName
+            })
+            layoutStore().addRouterList({
+              name: to.name,
+              path: to.path,
+              meta: {
+                title: to.meta.title,
+                icon: to.meta.icon
+              }
+            })
+            next()
+          })
+          .catch(() => {
+            delToken()
+            next(`/login`) // 否则全部重定向到登录页
+          })
       } else {
         if (whiteList.indexOf(to.path) !== -1) {
           next()

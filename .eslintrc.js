@@ -32,6 +32,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended'
+    // './.eslintrc-auto-import.json' 这狗逼怎么一开劳资格式化就失效了
   ],
   rules: {
     '@typescript-eslint/ban-ts-ignore': 'off',

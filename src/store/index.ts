@@ -2,7 +2,7 @@ import appStore from './modules/app'
 import vueXStore from './modules/vueX'
 import layoutStore from './modules/layout'
 import loginStore from './modules/login'
-const store = (() => {
+export const store = (() => {
   return {
     app: appStore(),
     layout: layoutStore(),
@@ -10,4 +10,3 @@ const store = (() => {
     login: loginStore()
   }
 })()
-export default store

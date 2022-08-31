@@ -97,6 +97,53 @@ const routerMap = [
           icon: 'ScaleToOriginal'
         },
         component: () => import('@/views/eleUi/dialog/index.vue')
+      },
+      {
+        path: '/eleUi/message',
+        name: 'Message',
+        meta: {
+          title: 'message',
+          icon: 'ScaleToOriginal'
+        },
+        component: () => import('@/views/eleUi/message/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/apiList',
+    name: 'apiList',
+    meta: {
+      title: 'apiList',
+      icon: 'Brush'
+    },
+    children: [
+      {
+        path: '/apiList/repairManage',
+        name: 'repairManage',
+        meta: {
+          title: '报修',
+          icon: 'Printer'
+        },
+        component: () => import('@/views/apiList/repairManage/index.vue')
+      }
+    ]
+  },
+  {
+    path: '/echarts',
+    name: 'echarts',
+    meta: {
+      title: 'echarts',
+      icon: 'Brush'
+    },
+    children: [
+      {
+        path: '/echarts/histogram',
+        name: 'histogram',
+        meta: {
+          title: '柱状图',
+          icon: 'Printer'
+        },
+        component: () => import('@/views/echarts/histogram/index.vue')
       }
     ]
   }

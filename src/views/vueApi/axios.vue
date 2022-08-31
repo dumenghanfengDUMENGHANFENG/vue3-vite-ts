@@ -8,9 +8,7 @@
 </template>
 
 <script setup lang="ts">
-  import { onBeforeMount } from 'vue'
   import { login, login1, AxiosApis } from '@/api/axios'
-  import { useRouter, useRoute } from 'vue-router'
   defineOptions({
     name: 'Axios'
   })

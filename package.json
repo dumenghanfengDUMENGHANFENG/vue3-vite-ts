@@ -16,6 +16,7 @@
     "@intlify/vite-plugin-vue-i18n": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "axios": "^0.27.2",
+    "echarts": "^5.3.3",
     "element-plus": "^2.2.9",
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
@@ -23,6 +24,7 @@
     "pinia-plugin-persist": "^1.0.0",
     "pinia-plugin-persistedstate": "^1.6.1",
     "qs": "^6.11.0",
+    "screenfull": "^6.0.2",
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.0",
     "vue-router": "4"
@@ -51,6 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "@vitejs/plugin-vue": "^2.3.3",
+    "consola": "^2.15.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
@@ -69,6 +72,7 @@
     "unplugin-vue-define-options": "^0.6.1",
     "vite": "^3.0.0",
     "vite-plugin-components": "^0.13.3",
+    "vite-plugin-style-import": "^2.0.0",
     "vue-tsc": "^0.34.7"
   }
 }

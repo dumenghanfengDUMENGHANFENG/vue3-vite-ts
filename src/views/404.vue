@@ -1,5 +1,5 @@
 <template>
-  <div class="disappear">404</div>
+  <el-empty />
 </template>
 
 <script setup lang="ts"></script>

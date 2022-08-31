@@ -11,29 +11,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": [
-      "unplugin-vue-define-options",
-      "node"
-    ],
+    "types": ["unplugin-vue-define-options", "node"],
     "baseUrl": ".", // 用于设置解析非相对模块名称的基本目录，相对模块不会受baseUrl的影响
     "paths": {
       // 用于设置模块名称到基于baseUrl的路径映射
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts", "components.d.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 const vueXStore = defineStore('vueX', {
   state: () => {
     return {

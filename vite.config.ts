@@ -6,6 +6,7 @@ import path from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+// import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default ({ mode }: { mode: any }) => {
@@ -17,11 +18,43 @@ export default ({ mode }: { mode: any }) => {
       vueJsx(),
       DefineOptions(),
       AutoImport({
+        imports: [
+          'vue',
+          'vue-router',
+          'pinia',
+          {
+            '@/store/index': ['store'], //自定义导入store
+            'vue-i18n': ['useI18n'] //自定义导入国际化
+            // 'vue-i18n': ['createI18n']
+            // 'vue-router': ['createRouter', 'RouteRecordRaw', 'createWebHashHistory']//只限main和.vue中使用分开导入容易出问题还是全部倒入
+          }
+        ],
+        dts: './auto-imports.d.ts', // 生成 `auto-import.d.ts` 全局声明
+        eslintrc: {
+          enabled: true, //不需要增加配置将 enabled: true 设置为 false，否则每次都会生成这个文件。
+          filepath: './.eslintrc- auto-import.json',
+          globalsPropValue: true
+        },
         resolvers: [ElementPlusResolver()]
       }),
+      // 自动导入ElementPlus 组件
       Components({
+        dts: true, //默认导出'./components.d.ts'
         resolvers: [ElementPlusResolver()]
       }),
+      // 按需引入自动导入ElementPlus样式(css)
+      // createStyleImportPlugin({
+      //   resolves: [ElementPlusResolve()],
+      //   libs: [
+      //     {
+      //       libraryName: 'element-plus',
+      //       esModule: true,
+      //       resolveStyle: (name: string) => {
+      //         return `element-plus/theme-chalk/${name}.css`
+      //       }
+      //     }
+      //   ]
+      // }),
       vueI18n({
         include: path.resolve(__dirname, './path/to/src/locales/**')
       })

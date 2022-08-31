@@ -1,19 +1,21 @@
 <template>
   <el-breadcrumb class="header-breadcrumb" separator="/">
     <el-breadcrumb-item key="/workbench" @click="breadcrumbClick()">工作台</el-breadcrumb-item>
-    <el-breadcrumb-item
-      v-for="item in store.layout.path === '/workbench' ? [] : filter(store.layout.path.split('/'))"
-      :key="item"
-      >{{ item }}</el-breadcrumb-item
-    >
+    <el-breadcrumb-item v-for="item in path === '/workbench' ? [] : filter(path.split('/'))" :key="item">{{
+      item
+    }}</el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
 <script setup lang="ts">
-  import { useRouter } from 'vue-router'
-  import store from '@/store'
   defineOptions({
     name: 'Breadcrumb'
+  })
+  defineProps({
+    path: {
+      type: String,
+      required: true
+    }
   })
   const router = useRouter()
   function breadcrumbClick() {

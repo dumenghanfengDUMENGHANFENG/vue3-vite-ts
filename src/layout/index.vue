@@ -16,7 +16,8 @@
         background-color="#304456"
         text-color="#BFCBD9"
         :collapse="asideIsShow"
-        :default-active="store.layout.path"
+        :collapse-transition="false"
+        :default-active="path"
         unique-opened
         router
       >
@@ -40,19 +41,19 @@
           <el-icon @click="asideIsShowClick" class="header-collapse" :size="20" v-else>
             <Expand />
           </el-icon>
-          <Breadcrumb />
+          <Breadcrumb :path="path" />
         </div>
         <!-- 退出登录 -->
         <Dropdown />
       </div>
       <div class="tabs">
-        <Tabs class="tabsLeft" />
+        <Tabs class="tabsLeft" :path="path" :tabsList="tabsList" />
         <Refresh class="tabsClose" />
       </div>
       <!-- 中间内容 -->
       <div class="main">
         <div class="main-content">
-          <router-view :key="store.layout.path" class="router-view" />
+          <router-view :key="path" class="router-view" />
         </div>
       </div>
       <!-- 底部 -->
@@ -68,8 +69,6 @@
   import Refresh from '@/layout/components/refresh.vue'
   import Dropdown from '@/layout/components/dropdown.vue'
   import routerMap from '@/router/routerMap'
-  import { ref } from 'vue'
-  import store from '@/store'
   defineOptions({
     name: 'Layout'
   })
@@ -90,13 +89,19 @@
     }[]
   }[]
   /**
-asideTypeList 侧边栏数据
-asideIsShow 侧边栏是否打开
-asideIsShowClick 侧边栏点击
-**/
-
+  asideTypeList 侧边栏数据
+  asideIsShow 侧边栏是否打开
+  asideIsShowClick 侧边栏点击
+  **/
+  const path = ref(store.layout.path)
+  const tabsList = ref(store.layout.tabsList)
   const asideList: asideTypeList = routerMap
-  const asideIsShow = ref(store.layout.asideIsShow)
+  const asideIsShow = ref<any>(store.layout.asideIsShow)
+  // 在组件即将因为响应式状态变更而更新其 DOM 树之前调用
+  onBeforeUpdate(() => {
+    path.value = store.layout.path
+    tabsList.value = store.layout.tabsList
+  })
   function asideIsShowClick() {
     asideIsShow.value = !asideIsShow.value
     store.layout.asideIsShowClick(asideIsShow.value)

@@ -8,6 +8,7 @@ import {
   RequestConfig
 } from './types.d'
 import { getToken } from '@/utils/cookie'
+import i18n from '@/locales/index' // 引入
 // axios基础配置
 const defaultConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_APP_BASE_API, // api 的 base_url
@@ -34,8 +35,6 @@ service.interceptors.response.use(
   (response: PureHttpResponse) => {
     // var result = response.data.message
     // if (result >= 1005 && result <= 1013) {
-    //   // 用户登录界面提示 这谁改的,我就说token失效了咋不跳回登陆界面
-    //   // 使用this.$route 这辈子也跳不过去
     //   // Cookies.set('point', 401)
     //   // this.$route.push({ name: 'Login' })
     //   store.dispatch('LogOut').then(() => {
@@ -75,8 +74,10 @@ service.interceptors.response.use(
       } else if (code === 403) {
         console.log(error, '403')
       } else {
-        // const errorMsg = error.response.data.message
-        console.log(error, '其他')
+        ElNotification({
+          title: i18n.global.t(`${error.response.data.message}`),
+          type: 'warning'
+        })
       }
     } else {
       console.log(error, '接口请求失败')

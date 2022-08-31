@@ -16,7 +16,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
   import CommunalDialog from '@/components/communalDialog/index.vue'
   defineOptions({
     name: 'Dialog'
@@ -31,7 +30,6 @@
     dialogIsShow.value = isShow
   }
   const submit = (isShow: boolean) => {
-    console.log('1111')
     dialogLoading.value = isShow
     setTimeout(function () {
       dialogLoading.value = false

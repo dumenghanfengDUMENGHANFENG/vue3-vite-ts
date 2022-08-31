@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import { appType } from '../type/app'
 const appStore = defineStore('app', {
   state: (): appType => {

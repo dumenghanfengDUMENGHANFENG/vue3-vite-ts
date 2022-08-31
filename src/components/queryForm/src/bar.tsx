@@ -1,5 +1,3 @@
-import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons-vue'
-import { defineComponent, ref } from 'vue'
 import FormItem from './formItem'
 const props = {
   queryFormTags: {
@@ -64,7 +62,7 @@ const props = {
 export default defineComponent({
   name: 'QueryForm',
   props,
-  setup(props) {
+  setup(props, { slots }) {
     const showCollapse = ref<boolean>(true)
     const foldIndexNew: number = props.foldIsShow ? props.foldIndex : props.queryFormTags.length
     let interceptList = props.queryFormTags.slice(0, foldIndexNew)
@@ -90,18 +88,24 @@ export default defineComponent({
                 }}
                 label={item.label}></el-form-item>
             ) : (
-              <el-form-item label={item.label} label-width={item.width ? item.width : ''}>
+              <el-formItem label={item.label} label-width={item.width ? item.width : ''}>
                 <FormItem
                   queryFormObj={props.queryFormObj}
                   data={item}
                   queryFormSelect={props.queryFormSelect}></FormItem>
-              </el-form-item>
+              </el-formItem>
             )
           })}
+          {/* 自定义插槽 */}
+          {slots.custom
+            ? slots.custom().map((customItem) => {
+                return <el-formItem>{customItem}</el-formItem>
+              })
+            : ''}
           {/* 展开/收起 */}
           {props.foldIsShow && props.foldIndex !== props.queryFormTags.length ? (
             showCollapse.value ? (
-              <el-form-item>
+              <el-formItem>
                 <span onClick={showCollapseClick} style="cursor: pointer;">
                   <span
                     style={{
@@ -112,12 +116,12 @@ export default defineComponent({
                     展开
                   </span>
                   <el-icon color="#409EFC">
-                    <ArrowDownBold />
+                    <arrowDownBold />
                   </el-icon>
                 </span>
-              </el-form-item>
+              </el-formItem>
             ) : (
-              <el-form-item>
+              <el-formItem>
                 <span onClick={showCollapseClick} style="cursor: pointer;">
                   <span
                     style={{
@@ -128,10 +132,10 @@ export default defineComponent({
                     收起
                   </span>
                   <el-icon color="#409EFC">
-                    <ArrowUpBold />
+                    <arrowUpBold />
                   </el-icon>
                 </span>
-              </el-form-item>
+              </el-formItem>
             )
           ) : (
             ''
