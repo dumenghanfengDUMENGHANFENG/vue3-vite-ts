@@ -16,11 +16,13 @@
 </template>
 <script setup lang="ts">
   import screenfull from 'screenfull'
+  import loginStore from '@/store/modules/login'
+  import layoutStore from '@/store/modules/layout'
   defineOptions({
     name: 'Dropdown'
   })
   const router = useRouter()
-  const username = store.login.username
+  const username = loginStore().username
   const name = ref('全屏')
   // 全屏
   function fullScreen() {
@@ -41,11 +43,11 @@
       type: 'warning'
     })
       .then(() => {
-        store.login
+        loginStore()
           .logOut()
           .then(() => {
-            store.login.logOut()
-            store.layout.reset()
+            loginStore().logOut()
+            layoutStore().reset()
             router.push({
               path: '/login'
             })

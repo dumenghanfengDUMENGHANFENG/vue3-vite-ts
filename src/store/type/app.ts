@@ -17,6 +17,10 @@ export type layoutType = {
   asideIsShow: Boolean
   path: string
   tabsList: {
+    meta: {
+      icon: string
+      title: string
+    }
     name: string
     path: string
   }[]

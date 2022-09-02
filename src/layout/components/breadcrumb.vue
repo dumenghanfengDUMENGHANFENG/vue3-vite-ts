@@ -1,9 +1,12 @@
 <template>
   <el-breadcrumb class="header-breadcrumb" separator="/">
-    <el-breadcrumb-item key="/workbench" @click="breadcrumbClick()">工作台</el-breadcrumb-item>
-    <el-breadcrumb-item v-for="item in path === '/workbench' ? [] : filter(path.split('/'))" :key="item">{{
-      item
-    }}</el-breadcrumb-item>
+    <div v-if="filter()">
+      <el-breadcrumb-item key="/workbench">{{ route.matched[0].meta.title }}</el-breadcrumb-item>
+    </div>
+    <div v-else>
+      <el-breadcrumb-item key="/workbench" @click="breadcrumbClick()">工作台</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="item in route.matched" :key="item.path">{{ item.meta.title }}</el-breadcrumb-item>
+    </div>
   </el-breadcrumb>
 </template>
 
@@ -11,22 +14,15 @@
   defineOptions({
     name: 'Breadcrumb'
   })
-  defineProps({
-    path: {
-      type: String,
-      required: true
-    }
-  })
   const router = useRouter()
   function breadcrumbClick() {
-    store.layout.modifyPath('/workbench')
     router.push({
-      path: '/workbench'
+      path: '/'
     })
   }
-  // 过滤
-  function filter(item: Array<string>) {
-    return item.filter((ele: string) => ele !== '')
+  const route = useRoute() //获取路由参数
+  function filter() {
+    return route.matched[0].meta.title === route.matched[1].meta.title
   }
 </script>
 

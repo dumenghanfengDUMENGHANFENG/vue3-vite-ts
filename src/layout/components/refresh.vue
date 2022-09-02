@@ -13,6 +13,7 @@
   </el-dropdown>
 </template>
 <script setup lang="ts">
+  import layoutStore from '@/store/modules/layout'
   defineOptions({
     name: 'Refresh'
   })
@@ -24,14 +25,13 @@
   }
   // 关闭其它
   function closeOther() {
-    store.layout.closeOther(route.fullPath)
-    router.replace({ name: 'redirect', params: { path: route.fullPath } })
+    layoutStore().closeOther(route.fullPath)
   }
   // 关闭全部
   function closeAll() {
-    store.layout.closeAll()
+    layoutStore().closeAll()
     router.replace({
-      path: '/workbench'
+      path: '/'
     })
   }
 </script>

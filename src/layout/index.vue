@@ -41,7 +41,7 @@
           <el-icon @click="asideIsShowClick" class="header-collapse" :size="20" v-else>
             <Expand />
           </el-icon>
-          <Breadcrumb :path="path" />
+          <Breadcrumb />
         </div>
         <!-- 退出登录 -->
         <Dropdown />
@@ -68,43 +68,28 @@
   import Tabs from '@/layout/components/tabs.vue'
   import Refresh from '@/layout/components/refresh.vue'
   import Dropdown from '@/layout/components/dropdown.vue'
-  import routerMap from '@/router/routerMap'
+  import layoutStore from '@/store/modules/layout'
   defineOptions({
     name: 'Layout'
   })
-  type asideTypeList = {
-    name: string
-    path: string
-    meta: {
-      title: string
-      icon: string
-    }
-    children?: {
-      name: string
-      path: string
-      meta: {
-        title: string
-        icon: string
-      }
-    }[]
-  }[]
+
   /**
-  asideTypeList 侧边栏数据
-  asideIsShow 侧边栏是否打开
-  asideIsShowClick 侧边栏点击
-  **/
-  const path = ref(store.layout.path)
-  const tabsList = ref(store.layout.tabsList)
-  const asideList: asideTypeList = routerMap
-  const asideIsShow = ref<any>(store.layout.asideIsShow)
-  // 在组件即将因为响应式状态变更而更新其 DOM 树之前调用
-  onBeforeUpdate(() => {
-    path.value = store.layout.path
-    tabsList.value = store.layout.tabsList
+asideTypeList 侧边栏数据
+asideIsShow 侧边栏是否打开
+asideIsShowClick 侧边栏点击
+**/
+  const router = useRouter()
+  const path = ref<string>(layoutStore().path)
+  const tabsList = ref(layoutStore().tabsList)
+  const asideList = router.options.routes
+  const asideIsShow = ref<any>(layoutStore().asideIsShow)
+  watch([layoutStore()], () => {
+    path.value = layoutStore().path
+    tabsList.value = layoutStore().tabsList
   })
   function asideIsShowClick() {
     asideIsShow.value = !asideIsShow.value
-    store.layout.asideIsShowClick(asideIsShow.value)
+    layoutStore().asideIsShowClick(asideIsShow.value)
   }
 </script>
 <style lang="scss" scoped>

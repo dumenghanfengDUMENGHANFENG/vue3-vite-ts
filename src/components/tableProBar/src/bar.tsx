@@ -89,7 +89,7 @@ export default defineComponent({
     // 多选事件
     const onSelectionChange = (row: any) => {
       multipleTable = row
-      emit('onSelectionChange', multipleTable)
+      emit('onSelectionChange', JSON.parse(JSON.stringify(multipleTable)))
     }
     // 单选事件
     const handleSingleChoice = (row: any) => {
@@ -101,7 +101,7 @@ export default defineComponent({
         multipleTable.splice(index, 1)
         TableProBar.value!.toggleRowSelection(row)
       }
-      emit('onSelectionChange', multipleTable)
+      emit('onSelectionChange', JSON.parse(JSON.stringify(multipleTable)))
     }
     // 排序点击事件
     const sortChange = (row: any) => emit('sortChange', row)

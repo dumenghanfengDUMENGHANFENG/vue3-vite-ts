@@ -1,30 +1,25 @@
-// import { defineStore } from 'pinia'
 import { layoutType, layoutTypeAdd } from '../type/app'
 const layoutStore = defineStore('layout', {
   state: (): layoutType => {
     return {
-      tabsList: [
-        {
-          path: '/workbench',
-          name: '工作台'
-        }
-      ],
+      tabsList: [],
       asideIsShow: false,
-      path: '/workbench'
+      path: ''
     }
   },
   actions: {
     // 新增路由
     addRouterList(item: layoutTypeAdd) {
+      if (item.path === '/redirect' || item.path === '/404') return
       const index = this.tabsList.findIndex((ele) => ele.path === item.path)
       if (index === -1) {
         this.tabsList.push(item)
-        this.path = item.path
       }
+      this.path = item.path
     },
     // 删除路由
     removeTabsList(name: string) {
-      if ((name = '/workbench')) return
+      if (name === '/workbench') return
       const index = this.tabsList.findIndex((ele) => ele.path === name)
       this.tabsList.splice(index, 1)
       if (this.path === name) {
@@ -45,16 +40,7 @@ const layoutStore = defineStore('layout', {
     },
     // 关闭全部
     closeAll() {
-      this.path = '/workbench'
-      this.tabsList = [
-        {
-          path: '/workbench',
-          name: '工作台'
-        }
-      ]
-    },
-    modifyPath(item: string) {
-      this.path = item
+      this.tabsList.splice(1, this.tabsList.length - 1)
     },
     // 侧边栏开关
     asideIsShowClick(isShow: Boolean) {
@@ -62,12 +48,7 @@ const layoutStore = defineStore('layout', {
     },
     // 重置
     reset() {
-      this.tabsList = [
-        {
-          path: '/workbench',
-          name: '工作台'
-        }
-      ]
+      this.tabsList = []
       this.asideIsShow = false
       this.path = '/workbench'
     }
@@ -77,7 +58,7 @@ const layoutStore = defineStore('layout', {
     enabled: true, // 开启存储
     strategies: [
       //在不写的情况下，默认存储到 sessionStorage 里面,默认存储 state 里面的所有数据。
-      { key: 'layoutStore', storage: sessionStorage, paths: ['tabsList', 'path'] }
+      { key: 'layoutStore', storage: sessionStorage, paths: ['tabsList', 'path', 'asideIsShow'] }
     ]
   }
 })

@@ -1,11 +1,18 @@
 <template>
   <!-- 一级页面 -->
-  <el-menu-item @click="routerClick(asideObj)" v-if="!asideObj.children" :index="asideObj.path">
+  <el-menu-item
+    @click="routerClick(asideObj)"
+    v-if="!asideObj.hidden && asideObj.nestingIsShow"
+    :index="asideObj.redirect ? asideObj.redirect : asideObj.path"
+  >
     <component :is="asideObj.meta.icon" class="menuIcon" />
     <span>{{ asideObj.meta.title }}</span>
   </el-menu-item>
   <!-- 二级页面 -->
-  <el-sub-menu :index="asideObj.path" v-else>
+  <el-sub-menu
+    :index="asideObj.redirect ? asideObj.redirect : asideObj.path"
+    v-if="!asideObj.hidden && !asideObj.nestingIsShow"
+  >
     <template #title>
       <component :is="asideObj.meta.icon" class="menuIcon" />
       <span>{{ asideObj.meta.title }}</span>
@@ -19,42 +26,35 @@
   </el-sub-menu>
 </template>
 <script setup lang="ts">
+  import layoutStore from '@/store/modules/layout'
   defineOptions({
     name: 'Aside'
   })
-  type routerType = {
-    name: string
-    path: string
-    meta: {
-      title: string
-      icon: string
-    }
-    children?: {
-      name: string
-      path: string
-      meta: {
-        title: string
-        icon: string
-      }
-    }[]
-  }
   defineProps({
     asideObj: {
-      type: Object as () => routerType,
+      type: Object as () => Record<string, any>,
       required: true
     }
   })
   // 菜单点击
-  function routerClick(item: routerType) {
-    store.layout.addRouterList({
+  function routerClick(item: Record<string, any>) {
+    layoutStore().addRouterList({
       name: item.name,
-      path: item.path,
+      path: item.redirect ? item.redirect : item.path,
       meta: {
         title: item.meta.title,
         icon: item.meta.icon
       }
     })
-    store.layout.modifyPath(item.path)
+    // layoutStore().addRouterList({
+    //   name: item.name,
+    //   path: item.path,
+    //   meta: {
+    //     title: item.meta.title,
+    //     icon: item.meta.icon
+    //   }
+    // })
+    // layoutStore().modifyPath(item.redirect ? item.redirect : item.path)
   }
 </script>
 

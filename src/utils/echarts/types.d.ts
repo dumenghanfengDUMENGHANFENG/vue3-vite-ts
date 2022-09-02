@@ -8,11 +8,11 @@ import {
   DatasetComponentOption
 } from 'echarts/components'
 type ECOption = ComposeOption<
-  | BarSeriesOption
-  | LineSeriesOption
-  | TitleComponentOption
-  | TooltipComponentOption
-  | GridComponentOption
-  | DatasetComponentOption
+  | BarSeriesOption //series 柱状图
+  | TitleComponentOption //title
+  | TooltipComponentOption //tooltip
+  | GridComponentOption //grid
+  | DatasetComponentOption //dataset
 >
-export { ECOption }
+type lineType = ComposeOption<LineSeriesOption> //series 折线图
+export { ECOption, lineType }

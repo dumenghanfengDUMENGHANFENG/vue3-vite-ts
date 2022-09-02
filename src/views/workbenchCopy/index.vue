@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h1>工作台</h1>
+    <h1>测试</h1>
     <h1>-----------------</h1>
-    <h1>{{ $t(`workbench`) }}</h1>
   </div>
 </template>
 

@@ -63,8 +63,11 @@
         store.login
           .loginSignIn(ruleForm)
           .then(() => {
-            router.push({
+            store.layout.$patch({
               path: '/workbench'
+            })
+            router.push({
+              path: '/'
             })
           })
           .catch(() => {

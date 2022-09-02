@@ -1,10 +1,15 @@
 <template>
   <el-tabs v-model="path" type="card" closable @tab-remove="removeTab" @tab-click="tabClick">
-    <el-tab-pane v-for="item in tabsList" :key="item.path" :label="item.name" :name="item.path" />
+    <el-tab-pane v-for="item in tabsList" :key="item.path" :label="item.meta.title" :name="item.path" />
   </el-tabs>
 </template>
 <script lang="ts" setup>
+  import layoutStore from '@/store/modules/layout'
   type routerType = {
+    meta: {
+      icon: string
+      title: string
+    }
     name: string
     path: string
   }[]
@@ -23,13 +28,12 @@
   const path = ref(props.path)
   const tabsList = ref(props.tabsList)
 
-  watch([props], (newValue) => {
-    path.value = store.layout.path
-    tabsList.value = newValue[0].tabsList
+  onBeforeUpdate(() => {
+    path.value = props.path
+    tabsList.value = props.tabsList
   })
   // 点击tabs
   function tabClick({ paneName }: any) {
-    store.layout.modifyPath(paneName)
     router.push({
       path: paneName
     })
@@ -37,9 +41,9 @@
   // 删除tabs
   function removeTab(targetName: any | undefined) {
     if (tabsList.value.length !== 1) {
-      store.layout.removeTabsList(targetName)
+      layoutStore().removeTabsList(targetName)
       router.push({
-        path: store.layout.path
+        path: layoutStore().path
       })
     }
   }

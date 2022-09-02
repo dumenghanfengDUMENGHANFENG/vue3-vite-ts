@@ -17,8 +17,12 @@
 
     <el-col :span="24">
       <el-button type="primary" size="large" icon="Plus" @click="add">新增</el-button>
-      <el-button type="success" size="large" icon="Edit" @click="modify">修改</el-button>
-      <el-button type="danger" size="large" icon="Delete" @click="deleteClick">删除</el-button>
+      <el-button type="success" :disabled="multipleTable.length !== 1" size="large" icon="Edit" @click="modify"
+        >修改</el-button
+      >
+      <el-button type="danger" :disabled="multipleTable.length === 0" size="large" icon="Delete" @click="deleteClick"
+        >删除</el-button
+      >
     </el-col>
     <el-divider />
     <el-col :span="24">
@@ -146,7 +150,7 @@
       label: '3'
     }
   ]
-  let multipleTable: any[] = []
+  const multipleTable = ref([])
   repairManageList()
   // 获取列表
   function repairManageList() {
@@ -175,7 +179,7 @@
   }
   // 修改
   function modify() {
-    Form.value.handleOpen(multipleTable)
+    Form.value.handleOpen(multipleTable.value)
   }
   // 删除
   function deleteClick() {
@@ -185,7 +189,7 @@
       type: 'warning'
     })
       .then(() => {
-        const ids = multipleTable.map((ele: { id: string }) => {
+        const ids = multipleTable.value.map((ele: { id: string }) => {
           return ele.id
         })
         repairManageApis.del({ ids: ids }).then(() => {
@@ -211,6 +215,7 @@
 
   // 多选事件
   function onSelectionChange(row: any) {
-    multipleTable = row
+    multipleTable.value = row
+    console
   }
 </script>

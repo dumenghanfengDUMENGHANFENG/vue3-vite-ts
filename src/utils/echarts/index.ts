@@ -1,12 +1,12 @@
 import * as echarts from 'echarts/core'
+// 系列类型的定义后缀都为 SeriesOption
 import {
-  BarChart,
-  // 系列类型的定义后缀都为 SeriesOption
+  BarChart, //柱状图
   LineChart
 } from 'echarts/charts'
+// 组件类型的定义后缀都为 ComponentOption
 import {
   TitleComponent,
-  // 组件类型的定义后缀都为 ComponentOption
   TooltipComponent,
   GridComponent,
   // 数据集组件
