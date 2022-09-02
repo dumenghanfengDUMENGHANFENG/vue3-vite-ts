@@ -80,13 +80,13 @@ export default ({ mode }: { mode: any }) => {
       jsxFragment: 'Fragment',
       jsxInject: "import { h } from 'vue';"
     },
-    // css: {
-    //   preprocessorOptions: {
-    //     scss: {
-    //       additionalData: `@import "@/style/index.scss";`
-    //     }
-    //   }
-    // },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/style/index.scss";`
+        }
+      }
+    },
     build: {
       sourcemap: false,
       minify: 'terser',
@@ -95,7 +95,7 @@ export default ({ mode }: { mode: any }) => {
       chunkSizeWarningLimit: 1500,
       terserOptions: {
         compress: {
-          drop_console: false,
+          drop_console: true,
           drop_debugger: true
         }
       },

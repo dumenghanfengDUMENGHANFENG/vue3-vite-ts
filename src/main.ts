@@ -18,7 +18,7 @@ app.use(router)
 // 清除默认样式
 import '@/style/reset.scss'
 // 导入总样式
-import '@/style/index.scss'
+// import '@/style/index.scss'(vite可以配置此处不加载)
 import 'element-plus/dist/index.css' //按需引入饿了么css总感觉有问题
 // 国际化
 import i18n from './locales/index' // 引入

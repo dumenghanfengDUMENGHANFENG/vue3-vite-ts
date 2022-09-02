@@ -1,13 +1,26 @@
 {
     "cSpell.words": [
         "Axios",
+        "consola",
+        "daterange",
+        "datetimerange",
+        "echart",
         "esbuild",
+        "getlist",
         "impor",
         "intlify",
+        "Itme",
+        "mtms",
         "nporgress",
         "nprogress",
+        "persistedstate",
         "pinia",
-        "unplugin"
+        "screenfull",
+        "SIGNALR",
+        "templete",
+        "unplugin",
+        "vant",
+        "VITE"
     ],
     "vue-i18n.i18nPaths": "src\\locales",
     "i18n-ally.localesPaths": [

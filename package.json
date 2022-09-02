@@ -11,6 +11,23 @@
     "build:stage": "cross-env vite build --mode development",
     "build:product": "cross-env vite build --mode production"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src*/**/*.ts": [
+      "prettier --config .prettierrc.js --write",
+      "eslint",
+      "git add"
+    ],
+    "src*/**/*.json": [
+      "prettier --config .prettierrc.js --write",
+      "eslint",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
     "@intlify/vite-plugin-vue-i18n": "^6.0.1",
@@ -28,23 +45,6 @@
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.0",
     "vue-router": "4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src*/**/*.ts": [
-      "prettier --config .prettierrc.js --write",
-      "eslint",
-      "git add"
-    ],
-    "src*/**/*.json": [
-      "prettier --config .prettierrc.js --write",
-      "eslint",
-      "git add"
-    ]
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",

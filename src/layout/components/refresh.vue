@@ -1,7 +1,9 @@
 <template>
   <el-dropdown>
     <span class="el-dropdown-link"
-      >操作<el-icon class="el-icon--right"><arrow-down /></el-icon>
+      >操作<el-icon class="el-icon--right">
+        <arrow-down />
+      </el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -14,6 +16,7 @@
 </template>
 <script setup lang="ts">
   import layoutStore from '@/store/modules/layout'
+
   defineOptions({
     name: 'Refresh'
   })
