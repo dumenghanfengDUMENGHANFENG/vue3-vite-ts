@@ -1,0 +1,103 @@
+//layout
+#layout {
+    width: 100vw;
+    height: 100vh;
+
+    .layoutAside {
+        height: 100vh;
+        background-color: $aside-bgColor;
+    }
+
+    // 右边
+    .layoutMain {
+        background-color: #f8f8f9;
+
+        // 头部
+        .layoutHeader {
+            height: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .header-left {
+                display: flex;
+                align-items: center;
+
+                .rate {
+                    margin-left: 10px;
+                    height: 20px;
+
+                }
+            }
+
+            .icon {
+                cursor: pointer;
+            }
+
+            .fullScreen {
+                transform: rotate(45deg);
+                margin-right: 10px;
+            }
+            .fullScreen1 {
+                margin-right: 10px;
+            }
+
+            .dropdown {
+                height: 20px;
+
+                .rateCheck {
+                    cursor: pointer;
+                }
+            }
+        }
+        .layoutTabs{
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .tabsLeft{
+                width: calc(100% - 76px);
+            }
+            .tabsRight{
+                height: 40px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                width: 76px;
+                border-bottom: 1px solid var(--el-border-color-light);
+            }
+            .el-tabs__header{
+                margin: 0px !important;
+            }
+        }
+
+        // 中间
+        .layoutContent {
+            margin: 15px;
+            height: calc(100vh - 151px);
+            border-radius: 10px;
+            overflow: auto;
+            background-color: #FFFFFF;
+        }
+
+        // 底部
+        .layoutFooter {
+            background-color: #FFFFFF;
+            height: 30px;
+            line-height: 30px;
+            background: none repeat scroll 0 0 #fff;
+            overflow: hidden;
+            font-size: .7rem !important;
+            color: #7a8b9a;
+            letter-spacing: .8px;
+            padding-left: 15px;
+            font-family: Arial, sans-serif !important;
+            z-index: 99;
+        }
+    }
+}

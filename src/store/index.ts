@@ -1,12 +1,7 @@
-import appStore from './modules/app'
-import vueXStore from './modules/vueX'
-import layoutStore from './modules/layout'
-import loginStore from './modules/login'
-export const store = (() => {
-  return {
-    app: appStore(),
-    layout: layoutStore(),
-    vueX: vueXStore(),
-    login: loginStore()
-  }
-})()
+import type { App } from "vue";
+import piniaPluginPersist from "pinia-plugin-persist";
+const store = createPinia();
+store.use(piniaPluginPersist);
+export const setupStore = (app: App<Element>) => {
+  app.use(store);
+};

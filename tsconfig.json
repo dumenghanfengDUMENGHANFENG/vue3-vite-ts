@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
-    "experimentalDecorators": true,
     "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["unplugin-vue-define-options", "node"],
-    "baseUrl": ".", // 用于设置解析非相对模块名称的基本目录，相对模块不会受baseUrl的影响
+    "allowJs": true,
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
     "paths": {
-      // 用于设置模块名称到基于baseUrl的路径映射
       "@/*": ["src/*"]
     },
-    "lib": ["esnext", "dom"],
-    "skipLibCheck": true
+    "outDir": "./"
+    // "types": ["element-plus/global"]
+    // "types": ["unplugin-vue-define-options/macros-global"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "auto-imports.d.ts", "components.d.ts"],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "include": [
+    "src/**/*.d.ts",
+    // "**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

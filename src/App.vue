@@ -1,11 +1,8 @@
 <template>
-  <!-- 组件国际化全局访问 -->
-  <!-- size="large" -->
-  <el-config-provider :locale="locale" size="large">
-    <router-view />
-  </el-config-provider>
+  <router-view />
 </template>
-<script setup lang="ts">
-  import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-  const locale = zhCn
-</script>
+
+<script setup lang="ts"></script>
+<style lang="scss">
+//解决scss自动引入问题https://blog.csdn.net/Neuromancerr/article/details/125332372
+</style>

@@ -1,34 +1,25 @@
 {
     "cSpell.words": [
-        "Axios",
+        "alicdn",
+        "atms",
+        "autoload",
+        "axios",
         "consola",
-        "daterange",
-        "datetimerange",
-        "echart",
+        "curren",
         "esbuild",
-        "getlist",
-        "impor",
+        "iconfont",
+        "iconify",
         "intlify",
         "Itme",
-        "mtms",
-        "nporgress",
+        "noredirect",
         "nprogress",
-        "persistedstate",
         "pinia",
-        "screenfull",
-        "SIGNALR",
-        "templete",
+        "sider",
+        "unocss",
         "unplugin",
-        "vant",
-        "VITE"
+        "vicons",
+        "vite",
+        "vueuse"
     ],
-    "vue-i18n.i18nPaths": "src\\locales",
-    "i18n-ally.localesPaths": [
-        "src/locales"
-    ],
-    "i18n-ally.extract.ignoredByFiles": {
-        "src\\views\\login.vue": [
-            "\n      国际化:{{ $t('workbench') }}\n      "
-        ]
-    }
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

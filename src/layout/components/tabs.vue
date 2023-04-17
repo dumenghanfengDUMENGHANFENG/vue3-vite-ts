@@ -1,50 +1,83 @@
 <template>
-  <el-tabs v-model="path" type="card" closable @tab-remove="removeTab" @tab-click="tabClick">
-    <el-tab-pane v-for="item in tabsList" :key="item.path" :label="item.meta.title" :name="item.path" />
-  </el-tabs>
+  <div class="layoutTabs">
+    <el-tabs
+      v-model="asidePath"
+      type="card"
+      closable
+      class="tabsLeft"
+      @tab-remove="removeTab"
+      @tab-click="tabClick"
+    >
+      <el-tab-pane
+        v-for="item in tabsPathList"
+        :key="item.path"
+        :label="item.name"
+        :name="item.path"
+      />
+    </el-tabs>
+    <el-dropdown class="tabsRight" @command="dropdownCommand">
+      <span class="rateCheck">
+        标签操作
+        <overall-icon :color="'#606266'" :icon="'IEpArrowDown'" />
+      </span>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item command="1">刷新页面</el-dropdown-item>
+          <el-dropdown-item command="2">关闭其他</el-dropdown-item>
+          <el-dropdown-item command="3">关闭全部</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+  </div>
 </template>
-<script lang="ts" setup>
-  import layoutStore from '@/store/modules/layout'
-  type routerType = {
-    meta: {
-      icon: string
-      title: string
-    }
-    name: string
-    path: string
-  }[]
-  const props = defineProps({
-    path: {
-      type: String,
-      required: true
-    },
-    tabsList: {
-      type: Object as () => routerType,
-      required: true
-    }
-  })
-
-  const router = useRouter()
-  const path = ref(props.path)
-  const tabsList = ref(props.tabsList)
-
-  onBeforeUpdate(() => {
-    path.value = props.path
-    tabsList.value = props.tabsList
-  })
-  // 点击tabs
-  function tabClick({ paneName }: any) {
+<script setup lang="ts">
+import { TabPaneName } from "element-plus/es/components/tabs/src/tabs";
+import { TabsPaneContext } from "element-plus/es/tokens/tabs";
+const store = layoutStore();
+const { tabsPathList, asidePath } = storeToRefs(store);
+const router = useRouter();
+const route = useRoute(); //获取路由参数
+// 标签点击
+const tabClick = (pane: TabsPaneContext) => {
+  if (pane.paneName) {
     router.push({
-      path: paneName
-    })
+      path: pane?.paneName?.toString()
+    });
   }
-  // 删除tabs
-  function removeTab(targetName: any | undefined) {
-    if (tabsList.value.length !== 1) {
-      layoutStore().removeTabsList(targetName)
-      router.push({
-        path: layoutStore().path
-      })
-    }
+};
+// 删除标签
+const removeTab = (name: TabPaneName) => {
+  if (tabsPathList.value.length === 1) return;
+  store.removeTabsList(name.toString());
+  router.push({
+    path: asidePath.value
+  });
+};
+// 右侧操作
+const dropdownCommand = (command: string | number | object) => {
+  switch (command) {
+    case "1":
+      router.replace({ name: "redirect", params: { path: route.fullPath } });
+      break;
+    case "2":
+      store.closeOther(route.fullPath);
+      break;
+    case "3":
+      store.closeAll();
+      router.replace({
+        path: "/"
+      });
+      break;
+    default:
+      break;
   }
+};
 </script>
+
+<style scoped lang="scss">
+.menuIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}
+</style>

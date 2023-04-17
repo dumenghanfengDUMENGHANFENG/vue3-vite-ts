@@ -1,56 +1,97 @@
-import { layoutType, layoutTypeAdd } from '../type/app'
-const layoutStore = defineStore('layout', {
+type layoutType = {
+  loginObj: any;
+  refreshIndex: number;
+  asideObj: any;
+  asidePath: string;
+  asideIsShow: boolean;
+  headersId: string | number;
+  headersList: {
+    id: string | number;
+    name: string;
+  }[];
+  tabsPathList: any;
+};
+import { LayoutApis } from "@/apis/layout";
+import getRoutes from "@/router/autoload";
+export const layoutStore = defineStore("layout", {
   state: (): layoutType => {
     return {
-      tabsList: [],
+      loginObj: {},
+      refreshIndex: 0,
+      asideObj: {},
+      asidePath: "/",
       asideIsShow: false,
-      path: ''
-    }
+      headersId: "element",
+      headersList: [],
+      tabsPathList: []
+    };
+  },
+  getters: {
+    asideList: (state): any => getRoutes(state.asideObj)
   },
   actions: {
-    // 新增路由
-    addRouterList(item: layoutTypeAdd) {
-      if (item.path === '/redirect' || item.path === '/404') return
-      const index = this.tabsList.findIndex((ele) => ele.path === item.path)
+    // 重置
+    reset() {
+      this.$reset();
+    },
+    // 新增标签
+    addTabs(item: { name: string | undefined; path: string }) {
+      if (item.path.includes("/redirect") || item.path === "/404") return;
+      const index = this.tabsPathList.findIndex(
+        (ele: { path: string }) => ele.path === item.path
+      );
       if (index === -1) {
-        this.tabsList.push(item)
+        this.tabsPathList.push(item);
       }
-      this.path = item.path
     },
     // 删除路由
     removeTabsList(name: string) {
-      if (name === '/workbench') return
-      const index = this.tabsList.findIndex((ele) => ele.path === name)
-      this.tabsList.splice(index, 1)
-      if (this.path === name) {
-        if (index < this.tabsList.length) {
-          this.path = this.tabsList[index].path
+      if (name === "/workbench") return;
+      const index = this.tabsPathList.findIndex(
+        (ele: { path: string }) => ele.path === name
+      );
+      this.tabsPathList.splice(index, 1);
+      if (this.asidePath === name) {
+        if (index < this.tabsPathList.length) {
+          this.asidePath = this.tabsPathList[index].path;
         } else {
-          this.path = this.tabsList[index - 1].path
+          this.asidePath = this.tabsPathList[index - 1].path;
         }
       } else {
-        this.path === name
+        this.asidePath === name;
       }
     },
     // 关闭其它路由
     closeOther(name: string) {
-      const currentObj: any = this.tabsList.find((ele) => ele.path === name)
-      const oneObj: any = this.tabsList[0]
-      this.tabsList = [].concat(oneObj, currentObj)
+      const currentObj: any = this.tabsPathList.find(
+        (ele: { path: string }) => ele.path === name
+      );
+      const oneObj: any = this.tabsPathList[0];
+      this.tabsPathList = [].concat(oneObj, currentObj);
     },
     // 关闭全部
     closeAll() {
-      this.tabsList.splice(1, this.tabsList.length - 1)
+      this.tabsPathList.splice(1, this.tabsPathList.length - 1);
     },
-    // 侧边栏开关
-    asideIsShowClick(isShow: Boolean) {
-      this.asideIsShow = isShow
+    // 获取侧边栏数据
+    loginSignIn() {
+      return new Promise((resolve, reject) => {
+        LayoutApis.aside({
+          id: this.headersId
+        })
+          .then((res: any) => {
+            this.asideObj = res.data;
+            resolve(res.data);
+          })
+          .catch(() => {
+            reject([]);
+          });
+      });
     },
-    // 重置
-    reset() {
-      this.tabsList = []
-      this.asideIsShow = false
-      this.path = '/workbench'
+    loginSignOut() {
+      this.headersList = [];
+      this.headersId = "eleUi";
+      delToken();
     }
   },
   persist: {
@@ -58,8 +99,11 @@ const layoutStore = defineStore('layout', {
     enabled: true, // 开启存储
     strategies: [
       //在不写的情况下，默认存储到 sessionStorage 里面,默认存储 state 里面的所有数据。
-      { key: 'layoutStore', storage: sessionStorage, paths: ['tabsList', 'path', 'asideIsShow'] }
+      {
+        key: "layoutStore",
+        storage: sessionStorage,
+        paths: ["headersId", "headersList", "tabsPathList"]
+      }
     ]
   }
-})
-export default layoutStore
+});
